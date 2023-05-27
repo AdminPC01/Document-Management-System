@@ -1,0 +1,35 @@
+{% extends 'main.html' %}
+
+{% block content%}
+
+<main class="home">
+<table class="table table-striped">
+   <thead class="thead-dark">
+    <tr>
+
+      <th scope="col">Title</th>
+      <th scope="col">Type</th>
+      <th scope="col">Author</th>
+      <th scope="col">Created</th>
+      <th scope="col">File</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+       {% for document in documents %}
+    <tr>
+
+      <td> {{document.title}} </a></td>
+      <td>{{document.type}}</td>
+      <td>{{document.author}}</td>
+      <td>{{document.date}}</td>
+        <td><a href="{{document.file.url}}-"> File </a> </td>
+      <td><a href="{% url 'change-document' document.id %}"> Edit  | </a> <a href=""> Delete</a></td>
+
+    </tr>
+{% endfor %}
+    <tr>
+
+</table>
+  </main>
+{% endblock %}

@@ -1,14 +1,14 @@
 from django.forms import ModelForm
-from .models import Profile
+from .models import Document
 
 
-class ProfileForm(ModelForm):
+class DocumentForm(ModelForm):
     class Meta:
-        model = Profile
+        model = Document
         fields = '__all__'
 
     def __init__(self, *args, **kwargs):
-        super(ProfileForm, self).__init__(*args, **kwargs)
+        super(DocumentForm, self).__init__(*args, **kwargs)
 
         for name, field in self.fields.items():
             field.widget.attrs.update({'class': 'input'})
