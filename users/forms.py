@@ -5,7 +5,7 @@ from .models import Profile
 class ProfileForm(ModelForm):
     class Meta:
         model = Profile
-        fields = '__all__'
+        fields = ['username', 'email']
 
     def __init__(self, *args, **kwargs):
         super(ProfileForm, self).__init__(*args, **kwargs)

@@ -11,3 +11,7 @@ def loginUser(response):
 def registerUser(response):
     context = {}
     return render(response,"register_form.html", context)
+
+def profiles(response):
+    context = {""}
+    return render(response, "profile.html", context)
