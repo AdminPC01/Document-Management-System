@@ -8,8 +8,9 @@
     <tr>
 
       <th scope="col">Title</th>
-      <th scope="col">Type</th>
+      <th scope="col">Category</th>
       <th scope="col">Author</th>
+      <th scope="col">Project</th>
       <th scope="col">Created</th>
       <th scope="col">File</th>
       <th scope="col">Action</th>
@@ -20,10 +21,11 @@
     <tr>
 
       <td> {{document.title}} </a></td>
-      <td>{{document.type}}</td>
+      <td>{{document.category}}</td>
       <td>{{document.author}}</td>
-      <td>{{document.date}}</td>
-        <td><a href="{{document.file.url}}-"> File </a> </td>
+      <td>{{document.project}}</td>
+      <td>{{document.created}}</td>
+        <td><a href="{{document.file.url}}"> File </a> </td>
       <td><a href="{% url 'change-document' document.id %}"> Edit  | </a> <a href=""> Delete</a></td>
 
     </tr>

@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Document
 from .forms import DocumentForm
 # Create your views here.
@@ -10,12 +10,6 @@ def documents(response):
     return render(response, "documents/documents.html", context)
 
 
-def document(response, pk):
-    document = Document.objects.get(id=pk)
-    context = {"document": document}
-    return render(response, "documents/singular-document.html", context)
-
-
 def add_document(response):
     form = DocumentForm()
 
@@ -23,6 +17,7 @@ def add_document(response):
         if form.is_valid:
             form = DocumentForm(response.POST, response.FILES)
             form.save()
+            redirect("documents")
 
     context ={"form": form}
     return render(response, "documents/document-form.html", context)
@@ -38,7 +33,7 @@ def change_document(response, pk):
             document = form.save(commit=False)
             document.author = response.user.profile
             document.save()
-
+            redirect("documents")
     context = {"form": form}
     return render(response, "documents/document-form.html", context)
 
