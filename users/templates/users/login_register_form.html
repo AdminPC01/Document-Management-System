@@ -18,7 +18,10 @@
           </div>
 
           <form action="#" class="form auth__form">
+
+             {% csrf_token %}
             <!-- Input:Email -->
+
             <div class="form__field">
               <label for="formInput#text">Username: </label>
               <input class="input input--text" id="formInput#text" type="text" name="username"
@@ -57,11 +60,11 @@
           </div>
 
           <form method="POST" action="#" class="form auth__form">
-
+            {% csrf_token %}
               {% for field in form %}
             <div class="form__field">
               <label for="formInput#text">field.label </label>
-                {{form}}
+                {{field}}
             </div>
                {% endif %}
             <div class="auth__actions">
