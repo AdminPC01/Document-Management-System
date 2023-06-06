@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .models import Document
 from .forms import DocumentForm
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import permission_required
 # Create your views here.
 
 
@@ -13,6 +14,7 @@ def documents(response):
 
 
 @login_required(login_url="login")
+# @permission_required()
 def add_document(response):
     form = DocumentForm()
 
@@ -27,6 +29,7 @@ def add_document(response):
 
 
 @login_required(login_url="login")
+# @permission_required()
 def change_document(response, pk):
     document = Document.objects.get(id=pk)
     form = DocumentForm(instance=document)

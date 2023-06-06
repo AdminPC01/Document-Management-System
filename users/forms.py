@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from .models import Profile
+from .models import Employee
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 

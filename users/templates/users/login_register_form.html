@@ -5,6 +5,7 @@
 
 
 {% if page == "login" %}
+
     <div class="auth">
 
         <div class="card">
@@ -17,7 +18,7 @@
             <p>Hello Developer, Welcome Back!</p>
           </div>
 
-          <form action="#" class="form auth__form">
+          <form method="POST" action="#" class="form auth__form">
 
              {% csrf_token %}
             <!-- Input:Email -->
@@ -40,13 +41,10 @@
             </div>
           </form>
 
-          <div class="auth__alternative">
-            <p>Don’t have an Account?</p>
-            <a href="{% url 'register' %}">Sign Up</a>
-          </div>
         </div>
       </div>
-    {% else %}
+
+    {% elif page == "register" %}
         <div class="auth">
 
         <div class="card">
@@ -55,7 +53,7 @@
             <a href="/">
               <img src="images/icon.svg" alt="icon" />
             </a>
-            <h3>Log in</h3>
+            <h3> Register </h3>
             <p>Hello Developer, Welcome Back!</p>
           </div>
 
@@ -63,10 +61,10 @@
             {% csrf_token %}
               {% for field in form %}
             <div class="form__field">
-              <label for="formInput#text">field.label </label>
+              <label for="formInput#text">{{field.label}} </label>
                 {{field}}
             </div>
-               {% endif %}
+               {% endfor %}
             <div class="auth__actions">
               <input class="btn btn--sub btn--lg" type="submit" value="Log In" />
             </div>

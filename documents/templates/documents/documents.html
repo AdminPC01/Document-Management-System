@@ -1,5 +1,5 @@
 {% extends 'main.html' %}
-
+{% load static %}
 {% block content%}
 
 <main class="home">
@@ -25,7 +25,7 @@
       <td>{{document.author}}</td>
       <td>{{document.project}}</td>
       <td>{{document.created}}</td>
-        <td><a href="{{document.file.url}}"> File </a> </td>
+        <td><a href="{{document.file.url}}"> <img src=" {% static 'icons/files.png' %}" style="width: 20px;"/> </a> </td>
       <td><a href="{% url 'change-document' document.id %}"> Edit  | </a> <a href=""> Delete</a></td>
 
     </tr>
