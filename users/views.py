@@ -3,16 +3,20 @@ from .models import Employee
 from .forms import CustomUserCreationForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.models import User
-
+from .utils import search_employees
 # Create your views here.
 
 
 @login_required(login_url="login")
+@permission_required("users.view_users")
 def profiles(response):
-    employees = Employee.objects.all()
-    context = {"employees": employees}
+
+    employees, search_query = search_employees(response)
+    user = response.user
+    user = Employee.objects.get(user=user)
+    context = {"employees": employees, "employee": user}
     return render(response, "users/profiles.html", context)
 
 
@@ -39,12 +43,16 @@ def login_user(response):
         if user is not None:
             login(response, user)
             messages.success(response, "User was successfully logged in")
-            redirect("documents")
+            return redirect('documents')
         else:
             messages.error(response, "Password or username is incorrect")
-
-    context = {"page": page}
-    return render(response, "users/login_register_form.html", context)
+    try:
+        user = response.user
+        employee = Employee.objects.get(user=user)
+    except:
+        employee=None
+    context = {"employee": employee, "page": page}
+    return render(response, "users/login_registration_form.html", context)
 
 
 @login_required(login_url="login")
@@ -58,9 +66,12 @@ def register_user(response):
             user.username = user.username.lower()
             user.save()
             login(response, user)
-            redirect(response, "documents")
-    context = {"form": form, "page": page}
-    return render(response, "users/login_register_form.html", context)
+            return redirect(response, "documents")
+    user = response.user
+    employee = Employee.objects.get(user=user)
+    context = {"form": form, "employee": employee, "page": page}
+
+    return render(response, "users/login_registration_form.html", context)
 
 
 @login_required(login_url="login")
@@ -71,7 +82,3 @@ def logout_user(response):
     return redirect("login")
 
 
-def Account():
-    pass
-def editAccount():
-    pass

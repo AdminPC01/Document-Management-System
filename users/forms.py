@@ -8,6 +8,9 @@ class CustomUserCreationForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['first_name', 'username', 'password1', 'password2']
+        label = {
+            'first_name': 'name'
+        }
 
     def __init__(self, *args, **kwargs):
         super(CustomUserCreationForm, self).__init__(*args, **kwargs)

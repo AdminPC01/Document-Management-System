@@ -15,9 +15,9 @@ class Category(models.Model):
 class Document(models.Model):
     author = models.ForeignKey(Employee, null=True, blank=True, on_delete=models.SET_NULL)
     title = models.CharField(max_length=200, null=True, blank=True)
-    category_id = models.ForeignKey(Category, null=True, blank=True, on_delete=models.SET_NULL)
+    category = models.ForeignKey(Category, null=True, blank=True, on_delete=models.SET_NULL)
     project = models.CharField(max_length=200, null=True, blank=True)
-    is_processed = models.BooleanField(null=True, blank=True)
+    is_processed = models.BooleanField(default=False, null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True, editable=False)
     file = models.FileField(null=True, blank=True, upload_to="documents")
     id = models.UUIDField(default=uuid.uuid1, unique=True, primary_key=True, editable=False)

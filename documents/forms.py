@@ -6,6 +6,7 @@ class DocumentForm(ModelForm):
     class Meta:
         model = Document
         fields = '__all__'
+        exclude = ['author']
 
     def __init__(self, *args, **kwargs):
         super(DocumentForm, self).__init__(*args, **kwargs)

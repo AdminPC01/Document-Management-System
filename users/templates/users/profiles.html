@@ -11,14 +11,14 @@
         </div>
 
         <div class="hero-section__search">
-          <form id="searchForm" class="form" action="{% url 'profiles' %}" method="get">
+          <form id="searchForm" class="form" action="{% url 'employees' %}" method="get">
             <div class="form__field">
               <label for="formInput#search">Search users </label>
               <input class="input input--text" id="formInput#search" type="text" name="search_query"
                 placeholder="Search by developer name" value = "{{search_query}}" />
             </div>
 
-            <input class="btn btn--sub btn--lg" type="submit" value="Search" />
+            <input class="btn btn--sub btn--lg" type="submit" value="search" />
           </form>
         </div>
       </div>
@@ -28,12 +28,12 @@
       
       <div class="container">
         <div class="grid grid--three">
-          {% for profile in profiles %}
+          {% for employee in employees %}
           <div class="column card">
             <div class="dev">
               <a href="{% url 'user-profile' employee.id %}" class="card__body">
                 <div class="dev__profile">
-                  <img class="avatar avatar--md" src="{{ employee.profile_image.url}}" alt="image" />
+                  <img class="avatar avatar--md" src="{{ employee.image_url}}" alt="image" />
                   <div class="dev__meta">
                     <h3>{{employee.name}}</h3>
 

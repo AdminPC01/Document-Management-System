@@ -3,33 +3,43 @@ from .models import Document
 from .forms import DocumentForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import permission_required
+from users.models import Employee
+from .utils import search_documents
 # Create your views here.
 
 
 @login_required(login_url="login")
 def documents(response):
-    documents = Document.objects.all()
-    context = {"documents": documents}
+
+    documents, search_query = search_documents(response)
+    user = response.user
+    employee = Employee.objects.get(user=user)
+
+    context = {"employee": employee, "documents": documents}
     return render(response, "documents/documents.html", context)
 
 
-@login_required(login_url="login")
-# @permission_required()
+@login_required(login_url="users/login-registration.html")
+@permission_required('document.add_document', login_url="users/login-registration.html")
 def add_document(response):
     form = DocumentForm()
-
+    user = response.user
+    employee = Employee.objects.get(user=user)
     if response.method == "POST":
         if form.is_valid:
             form = DocumentForm(response.POST, response.FILES)
-            form.save()
-            redirect("documents")
+            document = form.save(commit=False)
+            document.author = employee
+            document.save()
+    redirect("documents")
 
-    context ={"form": form}
+
+    context = {"form": form, "employee": employee}
     return render(response, "documents/document-form.html", context)
 
 
 @login_required(login_url="login")
-# @permission_required()
+@permission_required("document.change_document", login_url="users/login-registration.html")
 def change_document(response, pk):
     document = Document.objects.get(id=pk)
     form = DocumentForm(instance=document)
@@ -41,6 +51,10 @@ def change_document(response, pk):
             document.author = response.user.profile
             document.save()
             redirect("documents")
-    context = {"form": form}
+
+    user = response.user
+    employee = Employee.objects.get(user=user)
+    context = {"form": form, "employee": employee}
+
     return render(response, "documents/document-form.html", context)
 

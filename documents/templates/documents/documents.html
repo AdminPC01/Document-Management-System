@@ -2,7 +2,34 @@
 {% load static %}
 {% block content%}
 
+
+
 <main class="home">
+
+<div class="container container--narrow">
+            <div class="hero-section__box">
+                <h2>FIND YOUR DOCUMENTS WITH <span>DMS</span></h2>
+                <h2>EASILY AND QUICKLY</h2>
+            </div>
+
+            <div class="hero-section__search">
+
+                <form id="searchForm" class="form" action="{% url 'documents' %}" method="get">
+                    <div class="form__field">
+                        <label for="formInput#search">Search Documents </label>
+                        <input class="input input--text" id="formInput#search" type="text" name="search_query"
+                            value="{{search_query}}" placeholder="Search by document name" />
+                    </div>
+
+                    <input class="btn btn--sub btn--lg" type="submit" value="Search" />
+                </form>
+
+            </div>
+        </div>
+
+    <div>
+<button type="button" class="btn btn--sub btn--lg" > <a href="{% url 'add-document'%}"> Add document</a></button>
+</div>
 <table class="table table-striped">
    <thead class="thead-dark">
     <tr>
